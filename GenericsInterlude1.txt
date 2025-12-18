@@ -1,0 +1,90 @@
+Imagine objects that pair other objects whose data types are the same class type. We can define an interface to describe the behavior of ushc pairs and use a generic type in its definition. For example Listing J11-1 defines the interface
+Pairable that specifies these pairs. A Pairable object contains two objects of the same generic type T.
+
+Interface:
+public interface Pairable<T>
+{
+public T getFirst();
+public T getSecond();
+public void changeOrder();
+} // end Pairable
+
+A class that implements this interface could begin with the statement:
+public class OrderedPair<T> implements Pairable<T>
+in this example, the data type that we pass to the interface in the implements clause is the generic type T declared for the class. In general, one could pass the name of an actual class to the interface
+that appears in an implements clause. 
+
+NOTE: To establish a gneeric type when you define an interface or a class, you write an identifier -T for example enclosed in angle brackets after the name of the interface or class in its header. The identifier T can be 
+any identifier but usually is a single capital letter. It represents a reference type -not a primitive type -within the definition of the interface or class.
+
+Generic Classes: The class assumes we care about the order in which the objects appear in the pair. The notation <T> follows the identifier name in the class's header. Within the definition, T represents the data type of the two
+private data fields, the data type of the two parameters of the constructor, the return type of the methods getFirst and getSecond, and the data type of the local variable temp in the method changeOrder.
+
+Ordered Pair Class:
+
+/**
+A class of ordered pairs of objects having the same data type.
+@author Frank M. Carrano
+*/
+
+public class OrderedPair<T> implements Pairable<T>
+{
+private T first, second;
+
+public OrderedPair(T firstItem, T secondItem) //NOTE: no <T> after constructor name
+{
+first = firstItem;
+second = secondItem;
+} //end constructor
+
+/** Returns the first object in this pair. */
+public T getFirst()
+{
+return first;
+} //end getFirst
+
+/** Returns the second object int this pair. */
+public String toString()
+{
+return "(" + first + ", " + second + ")";
+} //end toString
+
+/** Interchanges the objects in this pair. */
+public void changeOrder()
+{ 
+T temp = first;
+first = second;
+second = temp;
+}//changeOrder
+} // end OrderedPair
+
+
+NOTE:: within the definition of a class name<T> where T is a generic type paramter,
+<T> follows the identifier name in the class's header
+<T> does not follow the names of the contructors in their definitions
+T not <T> can be a data type of data fields, method paramters, and local variables and it can be a return type of methods
+
+
+Creating OrderedPair objects: To create an ordered pair of String objects for example you can write a statement such as:
+OrderedPair<String> fruit = new OrderedPair<>("apple","banana");
+Now wherever T appears as a data type in the definition of OrderedPair, String is used
+
+Examples of how to use the object fruit:
+System.out.println(fruit);
+fruit.changeOrder();
+System.out.println(fruit);
+String firstFruit = fruit.getFirst();
+System.out.println(firstFruit + " has length " + firstFruit.length());
+
+
+NOTE::: Within the client of a generic class name<class-type>,
+An expression of the form
+new name<class-type>(...)
+creates an object of the class. As of Java 7, if this expresion is assigned to a variable whose data type is name<class-type>, you can ommit class-type in the expression. That is you can
+write a statement such as
+name<class-type> var = new name<>(...)
+The data type of objects of the class is name<class-tpe>,not name
+
+
+
+
