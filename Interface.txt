@@ -1,0 +1,43 @@
+Multiple classes can be defined in the same interface
+A class can define more methods than are decleared in the interface
+
+
+Implementing an interface that is used as part of a class needs to follow the format of:
+
+public class Square implements Measurable
+
+Interface:
+public interface Measurable{
+}
+
+The classes:
+
+public class Circle implements Measurable {
+}
+
+Client:
+public class Client {
+Measurable aCircle;
+Measurable aSquare;
+
+aCircle = new Circle();
+aSqaure = new Square();
+}
+
+
+A class can implement more than one interface. If it does simlpy list all the interface names, separated by commas. If the class is derived from another class, the implements clause always follows the extends caluse. Thus 
+you could write:
+public class C extends B implements Measurable, AnotherInterface
+
+extends than implements
+
+You cannot derive a class from more than one base class. 
+
+
+You can use a java interface as you would a data type when you declare a variable:
+public void giveLastNameTo(NameInterface aName);
+Any argument that is passed to this method must be an object of a class that implements NameInterface.
+
+
+
+
