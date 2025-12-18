@@ -1,0 +1,188 @@
+A bag is a finite collection of objects in no particular order. these objects have ths ame or related data types. A bag can contain duplicate items.
+Since an abstract data type, or ADT, descrives a data organization independently of a programming language, you have the choice of programming languages for its implementation.
+
+
+Bag Interface:
+/** 
+An interface that describes the operations of a bag of objects.
+@author Frank M. carrano
+*/
+public interface BagInterace<T>
+{
+/** Gets the current number of entries in this bag.
+@return The integer number of entries currently in the bag. */
+  public int getCurrentSize();
+/** Sees whether this bag is empty.
+@return True if the bag is empty, or false if not. */
+public boolean isEmpty();
+
+/** Adds a new entry to this bag.
+@param newEntry The boject to be added as a new entry.
+@return True if the addition is successful, or false if not. */
+public boolean add(T newEntry);
+
+/** Removes one unspecified entry from this bag, if possible.
+@return Either the removed entry, if the removal was successful, or null */
+public T remove();
+
+/** Removes one occurrence of a given entry from this bag, if possible.
+@param anEntry The entry to be removed.
+@return True if the removal was successful, or false if not. */
+public boolean remove(T anEntry);
+
+/** Removes all entries from this bag. */
+public void clear();
+
+/** Counts the number of times a given entry appears in this bag.
+@param anEntry The entry to be counted.
+@return The numer of times anEntry appears in the bag. */
+public int getFrequencyOf(T anEntry);
+
+/** Tests whether this bag contains a given entry.
+@param anEntry The entry to locate.
+@return True if the bag contains anEntry, or false if not. */
+public boolean contains(T anEntry);
+
+/** Retrieves all entries that in this bag.
+@return a newly allocated array of all the entries in the bag.
+Note: If the bag is empty, the returned array is empty. */
+
+public T[] toArray();
+} //end BagInterface
+
+
+TIP ::: Write java statements that test a class's methods by writing a test program before implementing a class
+
+To create a bag of class C objects:
+BagInterface<C> aBag = new Bag<>();
+
+
+
+
+Program that maintains a bag for onlien shopping:
+
+/** A class that maintains a shopping cart for an oline store.
+@author Frank M, Carrano
+*/
+
+public class OnlineShopper {
+public static void main(String[] args) {
+Item[] items = {new Item("Bird feeder", 2050),
+                new Item("Squirrel guard", 1547),
+                new Item("Bird bath", 4499),
+                new Item("Sunflower seeds", 1295)}
+BagInterface<Item> shoppingCart = new Bag<>();
+int totalCost = 0;
+
+// Statements that add selected items to the shopping cart:
+for (int index = 0; index < items.length; index++){
+Item nextItem = items[index]; //Simulate getting item from shopper
+shoppingCart.add(nextItem);
+totalCost = totalCost + nextItem.getPrice();
+} //end for
+
+//Simulate checkout
+while(!shoppingCart.isEmpty())
+System.out.println(shoppingCart.remove());
+
+System.out.println("Total cost: " + "\t$" + totalCost / 100 + "." + totalCost % 100);
+}//End main
+} // end OnlineShopper
+
+
+
+Piggy Bank program:
+
+/** 
+A class that implements a piggy bank by using a bag.
+@author Frank M. Carrano
+*/
+public class PiggyBank {
+private BagInterface<Coin> coins;
+
+public Piggybank() {
+coins = new Bag<>();
+} // end default constructor
+
+public boolean add(Coin aCoin) {
+return coins.add(aCoin);
+} // end add
+
+public Coin remove() {
+return coins.remove();
+} //end remove
+
+public boolean isEmpty() {
+return coins.isEmpty();
+} //end isEmpty
+} //end PiggyBank
+
+
+
+
+Demonstration of class PIGGY BANK
+
+/** A class that demonstrates the class PiggyBank.
+@author Frank M. Carrano
+*/
+public class PiggyBankExample {
+public static void main(String[] args) {
+Piggybank myBank = new PiggyBank();
+
+addCoin(new Coin(1, 2010), myBank);
+addCoin(new Coin(5, 2011), myBank);
+addCoin(new Coin(10, 2000), myBank);
+addCoin(new Coin(25, 2012), myBank);
+
+System.out.println("Removing all the coins:");
+int amountRemoved = 0;
+
+while(!myBank.isEmpty()) {
+Coin removedCoin = myBank.remove();
+System.out.println("Removed a " + removedCoin.getCoinName() + ".");
+amountRemoved = amountRemoved + removedCoin.getValue();
+} //end while
+System.out.println("All done. Removed " + amountRemoved + " cents.");
+} // end main
+
+private static void addCoin(Coin aCoin, PiggyBank aBank)
+{
+if (aBank.add(aCoin))
+System.out.println("Added a " + aCoin.getCoinName() + ".");
+else {
+System.out.println("Tried to but a " + aCoin.getCoinName() + ", but couldn't");
+} //end addCoin
+} //end PiggyBankExample
+
+
+
+
+ADT SET:
+A set is a special kind of bag that does not allow repeated or duplicate, entries. Whenever you must process an item in a data colleciton only once, you can use a set.
+A java interface for a class of sets
+
+/** An interface that describes the operations of a set of objects. */
+public interface SetInterface<T>
+{ 
+  pubic int getCurrentSize();
+  public boolean isEmpty();
+
+/** Adds a new entry to this set, avoiding duplicates.
+@param newEntry The object to be added as a new entry.
+@return True if the addition is successful, or false if the item already is in the set */
+public boolean add(T newEntry);
+
+/** Removes a specific entry from thsi set, if possible.
+@param anEtnry The entry to be removed.
+@return True if the removal was successful, or false if not. */
+pubic boolean remove(T anEntry);
+
+public T remove();
+public void clear();
+public boolean contains(T anEntry);
+pubic T[] toArray();
+} //end SetInterface
+
+
+
+
