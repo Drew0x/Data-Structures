@@ -1,1 +1,73 @@
+Best Algorithm is determined by time, space, generality, programming effort, and so on
+
+Complexity of Algorithm = analaysiss of algorithms
+
+NOTES:: Relative growth rates of common growth rate functions:
+1 < log(log n) < log n < log^2 n < n < n log n < n^2 < n^3 < 2^n < n!
+
+
+
+| n   | log(log n) | log n | log² n | n         | n log n    | n²   | n³   | 2ⁿ       | n!       |
+| --- | ---------- | ----- | ------ | --------- | ---------- | ---- | ---- | -------- | -------- |
+| 10¹ | 2          | 3     | 11     | 10        | 33         | 10²  | 10³  | 10³      | 10⁵      |
+| 10² | 3          | 7     | 44     | 100       | 664        | 10⁴  | 10⁶  | 10³⁰     | 10¹⁵⁸    |
+| 10³ | 3          | 10    | 99     | 1,000     | 9,966      | 10⁶  | 10⁹  | 10³⁰¹    | 10¹⁴³⁵   |
+| 10⁴ | 4          | 13    | 177    | 10,000    | 132,877    | 10⁸  | 10¹² | 10³⁰¹⁰   | 10¹⁹³³⁵  |
+| 10⁵ | 4          | 17    | 276    | 100,000   | 1,660,964  | 10¹⁰ | 10¹⁵ | 10³⁰¹⁰³  | 10⁴³³³⁸  |
+| 10⁶ | 4          | 20    | 397    | 1,000,000 | 19,931,569 | 10¹² | 10¹⁸ | 10³⁰¹⁰³⁰ | 10²⁹³³⁶⁹ |
+
+
+
+
+NOTES:: When analyzing time efficiency of an algorithm consider large problems. For small problems the difference between the execution times of two solutions to the same problem is usually insignificant
+
+
+
+NOTES::: The time requirements of some algorithms depend on the data values given to them. THose times range from a minimum or best case time to a maximum or worst case time. Typically the best and worse cases do not occur. 
+
+
+Notes:: Formal definition of BigOh : a function f(n) is of order at most g(n) - that is, f(n) is O(g(n)) if : a positive real number c and positive integer N exist such taht f(n) <= c * g(n) for all n >= N. That is c * g(n) is an upper bound on f(n) when n is sufficiently large.
+
+
+
+Notes: The upper bound on an algorithms time requirement should be as small as possible and should involve simple functions like the ones given in Figure 4-4.
+
+
+Note: To show that f(n) is O(g(n)), replace the smaller terms in f(n) with larger terms until only one term is left.
+Note: The base of a lograithm in a growth rate function is usually omitted , since O(log_a n) is O(log_b n)
+
+
+
+NOTE The complexities of program constructs::
+Construct:                                                                                            Time Complexity:
+Consecutive program segments S1, S2 .. Sk whose growth rate functions are g1, ... gk respectively:::: max(O(g1), O(g2)... O(gk)
+
+An if statement that chooses between program segments S1 and S2 whose growth rate functions are g1 and g2 respectively ::: O(condition) + max(O(g1)), O(g2))
+
+A loop that iterates m times and has a body whose growth rate function is g            :::: m * O(g(n))
+
+
+
+Notations: Big Oh, Big Omega, Big Theta
+
+O(n) algorithm = 
+for i = 1 to n 
+sum = sum + 1
+
+
+When loops are nested observe the innermost nested loop first
+
+O(n^2) algorithm = 
+for i = 1 to n
+for j = 1 to i
+sum = sum + 1
+
+
+
+
+
+
+
+
+
 
