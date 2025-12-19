@@ -1,1 +1,134 @@
 
+Core methods apart of first draft of class ArrayBag:
+Constructors
+public boolean add(T newEntry)
+public T[] toArray()
+private boolean isArrayFull()
+
+NOTE:: Methods such as add and remove that can alter the underlying structure of a collection are liekly to have the most involved implementations. In general you should define 
+such methods before hte others in the class. But since we can't test remove before add is correct, we will delay implementing it until after add is completed
+TIP:: When defining a class implement and test a group of core methods. Begin with methods that add to a collection of objects and/or have involved implementations.
+
+private final T[] bag;
+private int numberOfEntries;
+private static final int DEFAULT_CAPACITY = 25;
+
+TIP:: By declaring the array bag as a final data member of the class ArrayBag we know that the reference in the variable bag cannot change. 
+
+You cannot use a geneeric type when allocating an array. Instead we allocate an array of objects of type Object as follows:
+new Object[capacity]
+
+//The cast is safe because the new array contains null entries
+@SuppressWarnings("unchecked")
+T[] tempBag (T[])new Object[capacity];
+bag = tempBag;
+
+OUTLINE OF ARRAYBAG Class::
+/** A class of bags whose entries are stored in a fixed-size array.
+@author Frank M. Carrano
+*/
+public final class ArrayBag<T> implements BagInterface<T>
+{
+private final T[] bag;
+private int numberOfEntries;
+private static final int DEFAULT_CAPCITY = 25;
+
+/** Creates an empty bag whose initial capacity is 25. */
+public ArrayBag()
+{
+this(DEFAULT_CAPACITY);
+} // end default constructor
+
+/** Creates an empty bag having a given initial capacity.
+@param capacity The integer capacity desired. */
+public ArrayBag(int capacity) {
+// The cast is safe because the new array contains nulll entries.
+@SuppressWarnings("unchecked")
+T[] tempBag = (T[])new Object[capacity];
+bag = tempBag;
+numberOfEntries = 0;
+} //end constructor
+
+/**Adds a new entry to this bag.
+@param newEntry  The object to be added as a new entry.
+@return True if the addition is successful, or false if not. */
+public boolean add(T newEntry)
+{
+< Body to be defined >
+} // end add
+
+
+/** Retrieves all entries that are in this bag.
+@return  A newly allocated array of all the entries in the bag. */
+public T[] toArray(){
+< Body to be defined >
+} //end toArray
+
+//returns true if the array bag is full, or false if not.
+private boolean isArrayFull() {
+< Body to be defined >
+} //end isArrayFull
+
+< Similar partial definitions are here for the remaining methods decleared in BagInterface. >
+...
+} //end ArrayBag
+
+
+
+
+
+TIP:: When defining a class that implements an interface add teh comments and headers of the public methods to the class
+by copying them from the interface. In this way it is easy for you to check each methods specificaions as you implmemnt it. 
+
+The method add: if the bag is full, we cannot add anything to it. In that case the method add should return false. Otherwise, we simply add newEntry immediately after the last entry in the array bag by writing the following statement:
+bag[numberOfEntries] = newEntry;
+
+
+/** Adds a new entry to this bag.
+@param newEntry The object to be added as a new entry
+@return True  if the addition is successful or false if not. */
+public boolean add(T newEntry) {
+boolean result = true;
+if(isArrayFull()) {
+result = false;
+}else {
+//Assertion: result is true here
+bag[numberOfEntries = newEntry;
+numberOfEntries;
+} //end if
+return result;
+} //end add
+
+
+
+The method isArrayFull:
+//Returns true if the bag is full, or false it not.
+private boolean isArrayFull() {
+return numberOfEntries >= bag.length;
+} // end isArrayFull
+
+
+The method toArray:
+/** Retrieves all entries that are in this bag.
+@return A newly allocated array of all the entries in the bag. */
+public T[] toArray() {
+//The cast is safe because the new array contains null entries.
+@SuppressWarnings("unchecked")
+T[] result = (T[])new Object[numberOfEntries]; //Unchecked cast
+for (int index = 0; index < numberOfEntries; index++) {
+result[index] = bag[index];
+} // end for
+return result;
+} //end toArray
+
+
+SECURITY NOTE:: A class should not return a reference to an array that is a private data field.
+
+SECURITY NOTEs:: 
+Declare most if not all data fields of a class as private. Any public data fields should be static and final have constant values.
+Avoid clever logic if it obscures the fact that your code is safe.
+Avoid duplicate code. Instead encapsulate such code into a private method that other methods can call.
+When a constructor calls a method ensure that the method cannot be overridden.
+Final classes are more secure than others since it cannot be a superclass or base class of another class.
+
+
