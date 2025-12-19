@@ -1,0 +1,178 @@
+Nodes:
+class Node {
+private T data;
+private Node next;
+<Constructors>
+...
+<Accessors and mutator methods: getData, setData, getNextNode, setNextNode >
+...
+} // end node
+
+
+
+
+Private Innet class NODE
+
+private class Node {
+private T data;
+private Node next;
+
+private Node(T dataPortion) {
+this(dataPortion, null);
+} //end constructor
+
+private Node(T dataPortion, Node nextNode) {
+data = dataPortion;
+next = nextNode;
+} //end constructor
+} //end Node
+
+
+NOTE: TERMINOLOGY::::
+nested class is defined entirely within another class definition. Nested classes can be static, although we will not encounter any in this book. An inner class is a nested class that is not static. An outer class or enclosing class, contains a nested class.
+A top-level class is one that is not nested.
+
+An Outline of the class LinkedBag:
+/** A class of bags whose entries are stored in a chain of linked nodes.
+The bag is never full.
+@author Frank M. Carrano
+*/
+public final class LinkedBag<T> implements BagInterface<T> {
+private Node firstNode; //Reference to first Node
+private int numberOfEntries;
+
+public LinkedBag() {
+firstNode = null;
+numberOfEntries = 0;
+} //end default constructor
+
+<Implementations of the public methods decleared in BagInterface go here.>
+
+private class Node //Private inner class
+{
+<See Listing 3-1.>
+} //end Node
+} //end LinkedBag
+
+
+
+First node reference:
+Node newNode = new Node(newEntry);
+newNode.next = firstNode;
+firstNode = newNode;
+
+
+Add method:
+/** Adds a new entry to this bag.
+@param newEntry The object to be added as a new entry.
+@return True. */
+public boolean add(T newEntry) //OutOfMemoryError possible
+{
+//Add to beginning of chain:
+Node newNode = new Node(newEntry); //Make new node reference rest of chain
+newNode.next = firstNode; //(firstNode is null if chain is empty)
+firstNode = newNode;
+numberOfEntries++;
+} //end add
+
+method ToArray:::
+/** Retrieves all entries that are in this bag.
+@return A newly allocated array of all the entries in the bag. */
+public T[] toArray() {
+// The cast is safe because the new array contains null entries
+@SuppressWarnings("Unchecked")
+T[] result = (T[])new Object[numberOfEntries]; //Unchecked cast
+int index = 0;
+Node currentNode = firstNode;
+while((index < numberOfEntries) && (currentNode != null)) {
+result[index] = currentNode.data;
+index++;
+currentNode = currentNode.next;
+} //end while
+return result;
+} //end toArray
+
+TIP:: If ref is a reference to a node in a chain, be sure that ref is not null before you use it to access ref.data or ref.next. Otherwise, if ref is null, a NullPointerException will occur.
+
+
+
+A sample program that tests some methods in the class LinkedBag:
+/** A test of the methods add, toArray, isEmpty, and getCurrentSize,
+as defined in the first draft of the class LinkedBag.
+@author Frank M. Carrano
+*/
+public class LinkedBagDemo1 {
+public static void main(String[] args) {
+System.out.println("Creting an empty bag.");
+BagInterface<String> aBag = new LinkedBag<>();
+testIsEmpty(aBag, true);
+displayBag(aBag);
+
+String[] contentsOfBag = {"A", "D", "B", "A", "C","A","D"};
+testAdd(aBag, contentsOfBag);
+testIsEmpty(aBag, false);
+} //end main
+
+//Tests the method isEmpty.
+//PreCondition: If the bag is empty, the parameter empty should be true;
+// otherwise, it should be false.
+private static void testIsEmpty(BagInterface<String> bag, boolean empty)
+{
+System.out.println("\nTesting isEmpty with ");
+if (empty)
+  System.out.println("an empty bag: ");
+else
+  System.out.println("a bag that is not empty:");
+System.out.println("isEmpty finds the bag ");
+if(empty && bag.isEmpty())
+  System.out.println("empty: OK.");
+else if(empty)
+  System.out.println("not empty, but it is: ERROR.");
+else if(!empty && bag.isEmpty())
+  System.out.println("empty, but it is not empty: ERROR.");
+else
+  System.out.println("not empty: OK.");
+} //end testIsEmpty
+<The static methods testAdd and displayBag from Listing 2-2 are here >
+} // end LinkedBagDemo1
+
+
+
+Method getFrequency:::
+/** Counts the number of times a given entry appears in this bag.
+@param anEntry The entry to be counted.
+@return The number of times anEntry appears in the bag. */
+public int getFrequencyOf(T anEntry)
+{
+int frequency = 0;
+int loopCounter = 0;
+Node currentNode = firstNode;
+while ((loopCounter < numberOfEntries) && (currentNode != null)) 
+{
+  if (anEntry.equals(currentNode.data))
+    frequency++;
+  loopCounter++;
+  currentNode = currentNode.next;
+} // end while
+return frequency;
+} //end getFrequencyOf
+
+
+Method Contains:::
+public boolean contains(T anEntry) {
+boolean found = false;
+Node currentNode = firstNode;
+
+while(!found && (currentNode != null))
+{
+  if (anEntry.equals(currentNode.data))
+    found = true;
+  else
+    currentNode = currentNode.next;
+} //end while
+return found;
+} // end contains
+
+
+
+
