@@ -175,4 +175,150 @@ return found;
 
 
 
+Remove Method:
+public T remove() {
+T result = null;
+if (firstNode != null) {
+result = firstNode.data;
+firstNode = firstNode.next; //Remove first node from chain
+numberOfEntires--;
+} //end if 
+return result;
+} // end remove
+
+
+
+Remove method::
+public boolean remove(T anEntry) {
+boolean result = false;
+Node nodeN = getReferenceTo(anEntry);
+if(nodeN != null) {
+nodeN.data = firstNode.data; //Replace located entry with entry
+  //in first node
+firstNode = firstNode.next; //Remove first node
+numberOfEntries--;
+result = true;
+} //end if
+return result;
+} // end remove
+
+
+Clear Method:
+public void clear() {
+firstNode = null;
+} //end clear
+
+NOTE::After the method remove removes a node from a chain you have no way to reference the removed node, so you cannot use it. Moreover as Segment C.20 in Appendix C notes, the runtime environment automaticlaly deallocates and recycles the memory associated with the nodes. No explicity instruction from the programmer is necessary or in fact possible to cause deallocation to occur. 
+
+
+THE innner class Node with set and get methods::::
+private class Node {
+
+private T data; //Entry in bag
+private Node next; //Link to next node
+
+private Node(T dataPortion) {
+this(dataPortion, null);
+} // end constructor
+
+private Node(T dataPortion, Node nextNode) {
+data = dataPortion;
+next = nextNode;
+} //end constructors
+
+private T getData() {
+return data;
+} //end getData
+
+private void setData(T newData) {
+data = newData;
+} //end setData
+
+private Node getNextNode() {
+return next;
+} //end getNextNode
+
+private void setNextNode(Node nextNode) {
+next = nextNode;
+} // end setNextNode
+} // end Node
+
+
+
+
+THE CLASS NODE WITH PACKAGE ACCESS:::
+package BagPackage;
+class Node<T>
+{
+  private T  data;
+  private Node<T> next;
+
+Node(T dataPortion, null); //The constructor's name is Node, not Node<T>
+{
+this(dataPortion, null);
+} // end Constructor
+
+Node(T dataPortion, Node<T> nextNode) {
+data = dataPortion;
+next = nextNode;
+} // end Constructor
+
+T getData()
+{
+return data:
+} // end getData
+
+void setData(T newData) 
+{
+ data = newData;
+} // end setData
+
+Node<T> getNextNode()
+{
+return next;
+} // end getNextNode
+
+void setNextNode(Node<T> nextNode)
+{
+next = nextNode;
+} // end setNextNode
+} //end Node
+
+
+
+
+
+
+CLASS LINKEDBAG WHEN NODE IS IN THE SAME PACKAGE:::
+package BagPackage;
+public class LInkedBag<T> implements BagInterface<T>
+{
+private node<T> firstNode;
+....
+
+public boolean add(T newEntry)
+{
+Node<T> newNode = new Node<T>(newEntry);
+newNode.setNextNode(firstNode);
+firstNode = newNode;
+numberOfEntries++;
+
+return true;
+} // end add
+...
+} // endLinkedBag
+
+
+
+
+TIP::: If ref is a reference to a node in a chain, be sure that ref is not null before you use it to access ref .data or ref .next
+
+
+
+
+
+
+
+
+
 
