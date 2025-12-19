@@ -63,6 +63,137 @@ for j = 1 to i
 sum = sum + 1
 
 
+The effect of doubling the problem size on an algorithms time requirement
+
+| Growth-Rate Function for Size *n* Problems | Growth-Rate Function for Size *2n* Problems | Effect on Time Requirement |
+| ------------------------------------------ | ------------------------------------------- | -------------------------- |
+| 1                                          | 1                                           | None                       |
+| log n                                      | 1 + log n                                   | Negligible                 |
+| n                                          | 2n                                          | Doubles                    |
+| n log n                                    | 2n log n + 2n                               | Doubles and then adds 2n   |
+| n²                                         | (2n)²                                       | Quadruples                 |
+| n³                                         | (2n)³                                       | Multiplies by 8            |
+| 2ⁿ                                         | 2²ⁿ                                         | Squares                    |
+
+
+
+
+ARRAY BASED IMPLEMENTATION
+
+Adding an entry to a bag::
+public boolean add(T newEntry)
+{
+checkInitialization();
+boolean result = true;
+if(isArrayFull()) {
+result = false;
+}
+else 
+{ //Assertion: result is true here
+bag[numberOfEntries] = newEntry;
+numberOfEntries++;
+} //end if
+return result;
+} //end add
+
+
+
+Contains Method:
+
+public boolean contains(T anEntry)
+{
+checkInitizilaition();
+return getIndexOf(anEntry) > -1;
+} // end contains
+
+
+GetIndex method::
+
+private int getIndexOf(T anEntry)
+{
+int where = -1;
+boolean found = false;
+int index = 0;
+while(!found && (index < numberOfEntries))
+{
+  if (anEntry.equals(bag[index]))
+{
+found = true;
+where = index;
+} //end if
+index++;
+} //end while
+return where;
+} //end getIndexOf
+
+
+
+LINKED IMPLEMENTATION::
+
+
+Adding an entry to a bag
+
+public boolean add(T newEntry) //OutOfMemoryError possible
+{
+//add to beginning of chain:
+Node newNode = new Node(newEntry);
+newNode.next = firstNode; // Make new node reference rest of chain
+//(firstNode is null if chain is empty)
+firstNode = newNode; //new node is at beginning of chain
+numberOfEntries++;
+return true;
+} //end add
+
+
+Searching a bag for a given entry
+
+public boolean contains(T anEntry) {
+boolean found = false;
+while(!found && (currentNode != null)) {
+if (anEntry.equals(currentNode.data))
+found = true;
+else
+currentNode = currentNode.next;
+} //end while
+return found;
+} // end contains
+
+
+
+
+
+NOTES:::: Searching a bag that has a linked implementation
+Searching for an item is at the beginning of a chain of nodes is an O(1) operation. It takes the least time of any search of the chain, making this case the best case. If the item is in the last node of the chain, searching for it is O(n). This search takes the most time among the searches for an item that is in one of the nodes, and so this is the worse case. The actual item required to find an entry
+in a chain of nodes depends on which node contains it.
+
+
+
+The time efficiencies of the ADT bag operations for two implementaions expressed in Big Oh Notation
+
+
+
+| **ADT List Operation**          | **Array** | **Linked** |
+| ------------------------------- | --------- | ---------- |
+| getEntry(givenPosition)         | O(1)      | O(n)       |
+| add(newPosition, newEntry)      | O(n)      | O(n)       |
+| remove(givenPosition)           | O(n)      | O(n)       |
+| contains(anEntry)               | O(n)      | O(n)       |
+| toArray()                       | O(n)      | O(n)       |
+| clear(), getLength(), isEmpty() | O(1)      | O(1)       |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
