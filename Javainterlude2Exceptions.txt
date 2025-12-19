@@ -1,0 +1,8 @@
+Avoid nested try catch blocks if possible:
+try finally or try catch or try catch finally
+
+If a method contains a throw statement to throw an exception add a throws clause to its header rather than catching the exception within the methods body.
+In general throwing an exception and catching one should occur in separate methods
+
+Do not confuse the keywords throw and throws
+You use the Java reserved word throws in a methods header to declare the exceptions that the method might throw. The reserved word throw is used within the body of a method to actually throw an exception.
