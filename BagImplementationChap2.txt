@@ -193,9 +193,49 @@ numberOfEntries--;
 return result;
 } // end remove 
 
+METHOD ADD:
+public boolean add(T newEntry) {
+checkInitialization();
+boolean result = true;
+if(isArrayFull()) {
+result = false;
+} else {
+bag[numberOfEntries] = newEntry;
+numberOfEntries++;
+}
+return results;
+}
+
+Method double capacity:
+public boolean add(T newEntry) {
+checkInitializaiton();
+if(isArrayFull()) {
+doubleCapacity();
+}
+bag[numberOfEntries] = newEntry;
+numberOfEntries++;
+
+return true;
+}
 
 
+private method doubleCapactiy:
+//Throws an exception if the client requests a capacity that is too large.
+private void checkCapacity(int capacity) {
+if(capacity > MAX_CAPACITY)
+throw new IllegalStateException("Attempt to createa bag whose " + "capacity exceeds allowed " + "maximum of " + MAX_CAPACITY);
+}
 
+
+doubleCapcity Method
+private void doubleCapacity() {
+int newLength = 2 * bag.length;
+checkCapacity(newLength);
+bag = Array.copyOf(bag, newLength);
+} //end doublecapacity
+
+
+Programming TIP: A class implementing a single interface that decleares the operations of an ADT should define the moethods declared in the interface as its only public methods. However, the class can also define private methods and protected methods.
 
 
 
