@@ -1,0 +1,83 @@
+push(newEntry : T) : void
+pop()  pop(): T
+peek()  peek(): T
+isEmpty() : boolean
+clear()  clear: void
+
+StackInterface<String> stringStack = new OurStack<>();
+stringStack.push("Jim");
+stringStack.push("Jess");
+stringStack.push("Jill");
+stringStack.push("Jane");
+stringStack.push("Joe");
+
+String top = stringStack.peek();
+top = stringStack.pop();
+top = strinkStack.peek();
+top = stringStack.pop();
+
+Balance Checker Class::::
+public class BalanceChecker {
+  public static boolean checkBalance(String expression) {
+
+  StackInterface<Character> openDelimeterStack = new OurStack<>();
+
+  int characterCount = expression.length();
+  boolean isBalanced = true;
+  int index = 0;
+  char nextCharacter = ' ';
+
+while (isBalanced && (index < characterCount)) {
+  nextCharacter = expression.charAt(index);
+  switch(nextCharacter) {
+  case '(': case '[': case '{':
+    openDelimeterStack.push(nextCharacter);
+    break;
+  case ')': case ']': case '}':
+    if(openDelimiterStack.isEmpty())
+      isBalanced = false;
+    else
+    {
+      char openDelimiter = openDelimiterStack.pop();
+      isBalanced = isPaired(openDelimiter, nextCharacter());
+    }
+  break;
+  default: break;
+}
+index++;
+}
+if(!openDelimiterStack.isEmpty())
+  isBalanced = false;
+return isBalanced;
+}
+
+private static boolean isPaired(char open, char close)
+{
+  return (open == '(' && close == ')') ||
+         (open == '[' && close == ']') ||
+         (open == '{' && close == '}');
+}
+} // end Balance Checker
+
+
+How to use the class:: 
+String expression = "a {b [c (d+e)/2 -f] + 1}";
+boolean isBalanced = BalanceChecker.checkBalance(expression);
+if (isBalanced)
+System.out.println(expression + " is balanced");
+else 
+System.out.println(expression + " is not balanced");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
