@@ -1,3 +1,15 @@
+Program counter references the current instruction. The program counter might be part of an actual computer or in the case of Java part of a virtual computer.
+When a method is called the programs run tiem environment creatse an object called an activation record or frame for the method. 
+Java Class Library: The Stack: contains the class Stack which is an implementation of the ADT stack within the package java.util. This class has only one constructor a default constructor that creates an empty stack. In addition, the following four methods in this class are cimilar methods in our StackInterface. 
+public T push(T item);
+public T pop();
+public T peek();
+public boolean empty();
+
+
+
+
+
 push(newEntry : T) : void
 pop()  pop(): T
 peek()  peek(): T
