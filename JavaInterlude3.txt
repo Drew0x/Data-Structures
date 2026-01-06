@@ -1,1 +1,30 @@
+Enumerations have a compareTo method. 
+All classes that define the method compareTo implement the standard interface Comparable which is in the Java Class Library java.lang
+
+
+
+package java.lang;
+public interface Comparable<T>
+{
+public int compareTo(T other);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
