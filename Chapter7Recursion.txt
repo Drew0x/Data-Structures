@@ -1,0 +1,74 @@
+Infinite recursion results from a recursive method that does not check for a base case or that misses the base case
+
+Recursive method for displaying nodes:
+public void display() {
+displayChain(firstNode);
+}
+private void displayChain(Node nodeOne) {
+if (nodeOne != null) {
+System.out.println(nodeOne.getData());
+displayChain(nodeOne.getNextNode());
+}
+}
+
+Recursive method for displaying nodes in reverse:
+public void displayBackward() {
+displayChainBackward(firstNode);
+}
+private void displayChainBackward(Node nodeOne) {
+if(nodeOne != null) {
+displayChainBackward(nodeOne.getNextNode());
+System.out.println(nodeOne.getData());
+}
+}
+
+
+Tower of Hanoi
+
+Using a Stack instead of recursion for a recursive algorithm:::
+public void displayArray(int first, int last) {
+if(first == last) {
+System.out.println(array[first] + " ");
+} else {
+int mid = first + (last - first) / 2;
+displayArray(first, mid);
+displayArray(mid + 1, last);
+}
+}
+To represent a record we define a class that in this case has data fields for the methods arguments first and last. The following simple class is sufficient if we make it internal to our class containing
+displayArray:
+private class Record {
+private int first, last;
+private Record(int firstIndex, int lastIndex) {
+  first = firstIndex;
+  last = lastIndex;
+}
+}
+
+Iterative version of displayArray that usese a stack as we just described:
+private void displayArray(int first, int last) {
+  boolean done = false;
+  StackInterface<Record> programStack = new LinkedStack<>();
+  programStack.push(new Record(first, last));
+  while(!done && !programStack.isEmpty()) {
+  Record topRecord = programStack.pop();
+  first = topRecord.first;
+  last = topRecord.last;
+  if (first = last) {
+  System.out.println(array[first] + " ");
+} else {
+  int mid = first + (last + first) /2;
+  programStack.push(new Record(mid + 1, last));
+  programStack.push(new Record(first, mid));
+}
+}
+}
+
+
+
+
+
+
+
+
+
