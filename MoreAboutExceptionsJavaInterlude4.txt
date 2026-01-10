@@ -1,1 +1,134 @@
+The exception class of SquareRootException
+/** A class of runtime exceptions thrown when an attempt 
+is made to find the square root of a negative number.
+@author Frank M. Carrano
+*/
+public class SquareRootException extends RuntimeException
+{
+  public SquareRootException()
+  {
+    super("Attempted square root of a negative number.");
+  } //end default constructor
+public SquareRootException(String message)
+{
+  super(message);
+} // end constructor
+} //end SquareRootException
+
+Note that SquareRootExceptions default constructor could use this instead of super as follows:
+public SquareRootException()
+{
+super(message);
+}// end default constructor
+
+
+The class OurMath and its static method squareRoot
+/**
+  A class of static methods to perform various mathematical
+  computations, including the square root.
+  @author Frank M. Carrano
+*/
+public class OurMath
+{
+/** Computes the square root of a nonnegative real number.
+    @param value A real value whose square root is desired.
+    @return The square root of the given value.
+    @throws SquareRootException if value < 0. */
+public static double squareRoot(double value)
+    throws SquareRootException
+{
+  if (value < 0)
+    throw new SquareRootException();
+  else
+    return Math.sqrt(value);
+} // end squareRoot
+} //end OurMath
+
+
+A driver for the class OurMath
+/** A demonstration of aruntime exception using the class OurMath. */
+public class OurMathDriver
+{
+  public static void main(String[] args)
+{
+  System.out.print("The square root of 9 is ");
+  System.out.println(OurMath.squareRoot(9.0));
+} //end main
+} //end OurMathDriver
+
+
+
+The class Joemath
+/** A class of static methods to perform various matematical computations including the square root. */
+public class JoeMath
+{
+/** Computes the square root of a real number.
+@param value A real value whose square root is desired.
+@return A string containing the square root. */
+public static String squareRoot(double value)
+{
+  String result = "";
+  try 
+{
+    Double temp = OurMath.squareRoot(value);
+    result = temp.toString();
+} 
+catch (SquareRootException e)
+{
+    Double temp = OurMath.squareRoot(-value);
+    result = temp.toString() + "i";
+}
+return result;
+} //end squareRoot
+<Other mtehods not relevant to this discussion could be here.>
+} //end JoeMath
+
+
+A driver for the class JoeMath
+/**
+  a demonstration of a runtime exception using the class JoeMath.
+*/
+public class JoeMathDriver {
+  System.out.print("The square root of 9 is ");
+  System.out.println(JoeMath.squareRoot(9.0));
+} //end main
+} //end JoeMathDriver
+
+
+Imagine a class whose method someMethod has a throws clause in its header. If we override someMethod in a subclass can we list additional checked exceptions in its throws clause? No, java will not let us and will get a syntax error if we do.
+
+
+
+
+NOTE: An overriding method in a subclass cannot list exceptions in a throws clause that arent listed in a throws clause of the overridden method in the superclass unless they are derived from the exception classes lsited in the overridden method. However, an overriding method can list fewer exception in its throws clause or none at all.
+
+NOTE:: Statements within a finally block execute regardless of whether an exception occurs, but they do not execute if either the try block or a catch block calls System.exit. If no exception takes place, the finally block executes after its corresponding try block completes its execution.(If the try block contains a return statement, the finally block executes before the return.) However, if an exception occurs and it is caught by one of the catch blocks, the finally block executes after that catch block executes.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
