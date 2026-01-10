@@ -1,1 +1,75 @@
+Merge sort divides an array into halves, sorts the two halves and then merges them into one sorted array. The algorithm for merge sort is usually stated recursively.
+Known as the divide and conquer algorithm.
+
+Recursive Merge Sort: In a merge sort you merge two sorted arrays that are actually halves of the original array. 
+Merge Sort has the following recursive formulation:
+
+Algorithm mergeSort(a, tempArray, first, last)
+//Sorts the array entries a[first] through a[last] recursively
+if (first < last)
+{
+  mid = approximate midpoint between first and last
+  mergeSort(a, tempArray, first, mid)
+  mergeSort(a, tempArray, mid + 1, last)
+  Merge the sorted halves a[first..mid] and a[mid + 1...last] using the array tempArray
+}
+
+Notice that the algorithm ignores arrays of one or fewer entries.
+The following pseudocode describes the merge step:
+
+Algorithm merge(a, tempArray, first, mid, last)
+//Merges the adjacent subarrays a[first..mid] and a[mid + 1..last]
+beginhalf1 = first
+endHalf1 = mid
+beginHalf2 = mid + 1
+endHalf2 = last
+//While both subarrays are not empty compare an entry in one subarray with
+//an entry in the other; then copy the smaller item into the temporary array
+index = 0;
+while ( (beginHalf1 <= endHalf1) and (beginHalf2 <= endHalf2) )
+{
+  if(a[beginHalf1] <= a[beginHalf2])
+{
+    tempArray[index] = a[beginHalf1]
+    beginHalf1++
+} else { 
+    tempArray[index] = a[beginHalf2]
+    beginHalf2++
+}
+index++
+}
+//Assertion: One subarray has been completely compied to tempArray.
+
+Merge sort rearranges the entries in an array during its merge steps. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
