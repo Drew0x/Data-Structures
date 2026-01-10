@@ -151,6 +151,57 @@ Using Big 0 notation the efficiency of insertion sort of a chain is 0(n^2):: Sor
 
 
 
+Shell Sort:: The previous sorting algorithms are too ineficient to use on larger arrays. Shell sort is a variation of the insertion srot that is faster than 0(n^2)
+Donald Shell devised in 1959 an improved insertion sort now called the Shell sort. Shell wanted entries to move beyond their adjacent locations. To do so,
+he sorted subarrays of entries at equally spaced indeces. Instead of moving to anadjacent location, an entry moves everal locations away. The result is ana rray that is almost sorted one that can be sorted 
+efficiently by using an ordinary insertion sort.
+
+The heart of the Shell sort is the adaptation fo the insertion sort to work on a subarray of equally spaced entries. By combining and modifying the two algorithms that describe the insertion sort 
+as given in Segment 8.10, we obtain the following algorithm that sorts array entries whose indices are separated by an increment of space.
+
+Algorithm incrementalInsertionSort(a, first, last, space)
+// Sorts equally spaced entries of an array a[first ... last] into ascending order
+//first >= 0 and < a.length; last >= first and a.length;
+//space is the difference between the indices of the entries to sort
+
+for (unsorted = first + space through last at increments of space)
+{
+  nextToInsert = a[unsorted]
+  index = unsorted - space
+  while ( (index >= first) and (nextToInsert.compareTo(a[index]) < 0) )
+{
+  a[index + space] = a[index]
+  index = index - space
+}
+  a[index + space] = nextToInsert
+}
+
+
+A method to perform a Shell sort will invoke incrementalInsertionSort and supply any sequence of spacing factors. For example the following algorithm uses the spacing that Segment 8.22 described:
+Algorithm shellSort(a, first, last)
+//Sorts the entries of an array a[first..last] into ascending order
+//first >= 0 and < a.length; last >= first and a.length.
+n = number of array entries
+space = n / 2
+while(space > 0)
+{
+  for(begin = first through first + space - 1)
+{ 
+  incrementalInsertionSort(a, begin, first, last, space)
+}
+  space = space /2
+}
+
+Efficiency of Shell Sort:
+since the shell sort uses an insertion sort repeatedly, it certainly seems like much more work than using only one sertion sort. However it is not. Since 
+incrementalInsertionSort involves a loop and is called from within nested loops, the Shell sort uses three nested loops. Often such algorithms are 0(n^3), but it turns out that the worstcase behavior of the Shell sort is still 0(n^2). If n is a power of 2 the average case behavior is 0(n^1.5). And if you tweak the spacing a bit you can make the shell sort even more efficient. 
+
+Notes: The time efficiency of Shell sort: The shell sort is implemented in this chapter is 0(n^2) in the worst case. By adding 1 to space anytime that it is even, you can improve the worst -case behavior to 0(n^1.5)
+
+
+
+
+
 
 
 
