@@ -42,15 +42,135 @@ index++
 
 Merge sort rearranges the entries in an array during its merge steps. 
 
+public static <T extends Comparable<? super T>>
+  void mergeSort(T[] a, int first, int last)
+{
+  //The cast is safe because the new array contains null entries
+  @SuppressWarnings("unchecked")
+  T[] tempArray = (T[])new Comparable<?>[a.length]; //Unchecked Cast
+  mergeSort(a, tempArray, first, last);
+} //end mergeSort
+
+Time Efficiency of merge sort: O(n log n). Its need for a temporary array is a disadvantage
+
+Stable Sorts: A sorting algorithm is stable if it does not change the relative order of objects that are equal. For example if object x appears before object y
+after sorting the data. Stability is important to certain applications. For example suppose that you sort a group of people first by name and then by age. A stable sorting algorithm will ensure that people of the same age will remain in alphabetical order. The merge sorts in the Java Class LIbrary are stable. 
+
+Quick Sort: The quick sort divides an array into two pieces but unlike merge sort these pieces are not necessarily halves of the array.
+Instead, quick sort chooses one entry in the array called the pivot so that.: The pivot is in the position that it will occupy in the final sorted array.
+: Entries in  positions before the pivot are less than or equal to the pivot: Entries in positions after the pivot are greater than or equal to the pivot.
+
+Time efficiency of quick sort is 0(n log n) in the average case but 0(n^2) in the worst case, The choice of pivots affects its behavior. Ideally the pivot should be the median value in the array so that the subarrays smaller and larger each have the same or nearly the same number of entries.
+Choosing the best pivot involves finding the median of all values in the array take the median of three entries in the array: first entry middle entry and the last entry. This pivot selection strategy is called median of three pivot selection.
+
+Pivot Selection:
+//Sorts the first, middle, and last entries of an array into ascending order
+private static <T extends Comparabl<? super T>>
+    void sortFirstMiddleLast(T[] a, int first, int mid, int last)
+
+Partitioning:
+Algorithim partition(a, first, last)
+//Partitions on array a[first...last] as part of quick sort into two subarrays named
+//Smaller and Larger that are separated by a single entry the pivot named pivotValue
+//Entries in Smaller are <= pivotValue and appear before pivotValue in the array.
+//Entries in Larger are >= pivotValue and appear after pivotValue in the array.
+//first >= 0; first < a.length; last - first >= 3; last < a.length.
+//Returns the index of the pivot
+
+  mid = index of the arrays middle entry
+  sortFirstMiddleLast(a, first, mid, lsat)
+  // Assertion a[mid] is the pivot that is pivot value
+  //a[first] <= pivtoValue and a[last] >= pivotValue so do not compare these two
+  // array entries with pivotValue.
+  // Move pivotValue to next to last position in array
+  Exchange a[mid] and a[last -1]
+  pivotIndex = last -1
+  pivotValue = a[pivotIndex]
+  //Determine two subarrays:
+  // Smaller = a[first..endSmaller] and
+  //  Larger = a[endSmaller+1...last -1]
+  //such that entries in Smaller are <= pivotValue and
+  //entries in Larger are >= pivotValue
+  //Initially these subarrays are empty
+  indexFromLeft = first +1
+  indexFromRight = last - 2
+  done = false
+  while (!done)
+  {
+  //Starting at the beginning of the array leave entries that are < pivotValue and 
+  //Locate the first entry that is >= pivotValue. You will find one since the alst entry is >= pivotValue.
+while(a[indexFromLeft] < pivotValue)
+  indexFromLeft++
+  //Starting at the end of the array leave entries that are > pivotValues and 
+  //locate the first entry that is <= pivotValue. You will find one since the first entry is <= pivotValue
+  while(a[indexFromRight] > pivotValue)
+  indexFromRight--
+  //assertion a[indexFromLeft] >= pivotValue and
+  //          a[indexFromRight] <= pivotValue
+  if(indexFromLeft < indexFromRight) {
+  Exchange a[indexFromLeft] and a[indexFromRight]
+  indexFromLeft++
+  indexFromRight--
+}
+  else
+  done = true
+}
+  //Place pivotValue between the subarrays Smaller and Larger
+Exchange a[pivotIndex] and a[indexFromLeft]
+pivotIndex = indexFromLeft
+//Assertion Smaller = a[first .. pivotIndex -1]
+//    pivotValue = a[pivotIndex]
+//    Larger = a[pivotIndex + 1 ... last]
+return pivotIndex
 
 
 
 
+Quick Sort Method::::
+
+/** Sorts an array into ascending order. Uses quick sort with median of three pivot selection for arrays of at least MIN_SIZE entries, and uses
+insertion for smaller arrays. */
+public static <T extends Comparable<? super T>>
+  void quickSort(T[] a, int first, int last)
+{
+  if(last - first + 1 < MIN_SIZE)
+{
+  insertionSort(a, first, last);
+} 
+else
+{
+  //Creat hte partition: Smaller | Pivot | Larger
+  int pivotIndex = partition(a, first, last);
+  //Sort subarrays Smaller and Larger
+  quickSort(a, first, pivotIndex -1);
+  quickSort(a, pivotIndex + 1, last);
+} // end if
+} // end quickSort
 
 
+Radix Sort:: Faster than any other sorting algorithm with Big O Notation 0(n)
+Radix Sort algorithm:
+Algorithm radixSort(a, first, last, maxDigits)
+//Sorts the array of positive decimal integers a[first..last] into ascending order
+//maxDigits is the number of digits in the longest integer.
+for(i=0 to maxDigits -1)
+{
+  Clear bucket[0], bucket[1],...,bucket[9]
+  for(index = first to last)
+  {
+    digit = digit i of a[index]
+    Place a[index] at end of bucket[digit]
+  }
+  Place contents of bucket[0], bucket[1],..,bucket[9] into the array a
+}
+Efficiency of Radix is determined by::: If an array contains n integers the inner loop in the previous algorithm iterates n times. If each integer contains d digits the outer loop iterates d times. Thus the radix sort is 0(d * n). The d in this expression tells us that the actual running time for a radix sort depends on the size of the integers. But on a computer the typical integer is restricted in size to about 10 decimal digits or 32 bits. As long as d is fixed and is much
+smaller than n radix sort is simple an 0(n) algorithm.
 
 
+Although a radix sort is the fastest it is not always applicable. The merge sort and quick sort are generally faster than any of the other algorithms. 
 
+For several values of n you use an 0(n^2) algorithm when n is 10. When n is 100, a shell sort is almost as fast as a quick sort in the average case. But when
+n is one million an average case quick sort is much faster than a shell sort and much much faster than an insertion sort.
 
 
 
