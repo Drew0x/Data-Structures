@@ -1,0 +1,169 @@
+Selection Sort is where the smallest value in the array is found first and then sent to the front of the array and then following the same pattern until all the numbers have been sorted.
+Class for sorting an array using selection sort:
+/** 
+Class for sorting an array of Comparable objects from smallest to largest
+*/
+
+public class SortArray {
+/** Sorts the first n objects in an array into ascending order.
+@param a An array of Comparable objects.
+@param n An integer >0. */
+public static <T extends Comparable<? super T>>
+  void selectionSort(T[] a, int n)
+{
+  for(int index = 0; index < n-1; index++) {
+    int indexOfNextSmallest = getIndexOfSmallest(a, index, n -1);
+    swap(a, index, indexOfNextSmallest);
+    //Assertion: a[0] <= a[1] <= . . . <= a[index] <= all other a[i].
+} // end for
+} //end selection Sort
+
+
+//Find sthe index of the smallest value in a poriton of an array a.
+//Precondition: a.length > last >= first >= 0.
+//Returns the index of the samllest value among
+// a[first], a[first + 1], . . . , a[last].
+private static <T extends Comparable<? super T>>
+        int getIndexOfSmallest(T[] a, int first, int last)
+{
+  T min = a[first];
+  int indexOfMin = first;
+  for(int index = first + 1; index <= last; index++)
+  {
+    if(a[index].compareTo(min) < 0)
+    {
+      min = a[index];
+      indexOfMin = index;
+      } // end if
+  //Assertion: min is the smallest of a[first] through a[index].
+} // end for
+
+return indexOfMin;
+} // end getIndexOfSmallest
+
+//Swaps the array entries a[i] and a[j].
+prviate static void swap(Object[] a, int i, int j)
+{
+  Object temp = a[i];
+  a[i] = a[j];
+  a[j] = temp;
+}// end swap
+} // end SortArray
+
+
+
+Selection Sort also has a natural recursive form. Often recursive algorithms that involve arrays operate on a portion of the array.
+When we implement the previous recursive algorithm in Java, the resulting method will have first and last as parameters. Thus its header will differ from the header of hte iterative method selectionSort given.
+
+public static <T extends Comparable<? super T>>
+    void selectionSort(T[] a, int n)  
+{
+    selectionSort(a, 0, n-1);
+}
+
+Big O Notation or time efficiency of selection Sort is 0(n^2)
+
+
+
+Insertion sort is taking the value desired and moving it based upon the nearest entries. Example of bookshelf where each book is gone through based on height. 
+When one book is taller than the next the next book is moved to the position of the prior book thus moving the original book one position over and aligning the incremental height aspect.
+
+An insertion sort of an array partitions that is dvides the array into two parts. One part is sorted and initially contains just the first entry in the array. The second part contains the remaining entries.
+The algorithm removes the first entry from the unsorted part and inserts it into its proper sorted position within the sorted part. 
+
+
+
+Recursive Insertion Sort:::
+You can describe an insertion sort recursively as follows. If you sort all but the last item in the array a smaller problem that sorting the entire array you
+then can insert the last item into its proper position.
+
+public static <T extends Comparable<? super T>>
+    void insertionSort(T[] a, int first, int last)
+{
+  if(first < last)
+{
+  // Sort all but the last entry
+  insertionSort(a, first, last -1);
+
+  // Insert the last entry in sroted order
+  insertInOrder(a[last], a, first, last -1);
+} // end if
+} // end insertionSort
+
+Big O Notation for the efficiency of Insertion sort is at best 0(n) and at worst 0(n^2). The closer an array is to sorted order, the less work an insertion sort does.
+
+
+
+Insertion Sort of a Chain of Linked Nodes:::
+Method to insert the node:::
+
+private void insertInOrder(Node notToInsert)
+{
+  T item = nodeToInser.getDeata();
+  Node currentNode = firstNode;
+  Node previousNode = null;
+  //Locate insertion point
+  while( (currentNode != null) && (item.compateTo(currentNode.getData() > 0) ) 
+{
+  previousNode = currentNode;
+  currentNode = currentNode.getNextNode();
+} // endWhile
+
+//Make the insertion
+if (previousNode != null)
+{ //Insert between previousNode and currentNode
+  previousNode.setNextNode(notToInsert);
+  nodeToInsert.setNextNode(currentNode);
+}
+else // Insert at beginning
+{
+  nodeToInsert.setNextNode(firstNode);
+  firstNode = nodeToInsert;
+} //end if
+} //end insertInOrder
+
+The value of local variable item will be the data portion of the bode to be inserted. The while loop compares item
+to the data in each node in the chain until either item is less than or equal to a data value or the end of the end of the chain is reached.
+The references previousNode and currentNode are then used to insert the given node into its proper position. 
+
+
+The Method to perform the Insertion Sort appears as follows. The local variable unsortedPart starts at the second node and then references weach node in the reast of the chain as the loop executes.
+Each of these nodes is inserted into the sorted part of the chain. Note that length is the number of nodes in the chain.
+
+public void insertionSort() {
+  //If fewer than two items are in the chain, there is nothing to do
+  if(length > 1) {
+  assert firstNode != null;
+  //Break the chain into 2 pieces: sorted and unsorted
+  Node unsortedPart = firstNode.getNextNode();
+  assert unsortedPart != null;
+  firstNode.setNextNode(null);
+while (unsortedPart !- null)
+{
+  Node nodeToInsert = unsortedPart;
+  unsortedPart = unsortedPart.getNextNode();
+  insertInOrder(nodeToInsert);
+} // end while
+} //end if
+} // end insertionSort
+
+Using Big 0 notation the efficiency of insertion sort of a chain is 0(n^2):: Sorting a chain of linked nodes can be difficult. The insertion sort, however provides a reasonable way to perform this task.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
