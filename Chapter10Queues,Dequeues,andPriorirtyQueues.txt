@@ -1,1 +1,228 @@
+Queue is first in first out
+Stack is last in first out
+
+Abstract Data Type Queue:
+A collection of objects in chronological order and having the same data type
+enqueue(newEntry)
+dequeue()
+getFront()
+isEmpty()
+clear()
+
+Interface for ADT Queue
+public interface QueueInterface<T>
+{
+  public void enqueue(T newEntry);
+
+  public T dequeue();
+
+  public T getFront();
+
+  public boolean isEmpty();
+
+  public void clear();
+} //end queue
+
+QueueInterface<String> myQueue = new LinkedQueue<>();
+myQueue.enqueue("Jim");
+myQueue.enqueue("Jess");
+myQueue.enqueue("Jill");
+myQueue.enqueue("Jane");
+myQueue.enqueue("Joe");
+
+String front = myQueue.getFront();
+
+front = myQueue.dequeue();
+
+myQueue.enqueue("Jerry");
+
+front = myQueue.getFront();
+
+front = myQueue.dequeue();
+
+
+Programming Tip:: Methods such as getFront and dequeue must behave reasonably where the queue is empty. Here, we specify that they throw an exception. Just as we discussed in Chapter 5 in the context of the ADT stack, other possibilities include returning null or giving these methods the precondition that the queue is not empty.
+
+
+The class waitLine
+/** Simulates a waiting line. */
+public class WaitLine {
+  private QueueInterface<Customer> line;
+  private int numbnerOfArrivals;
+  private int numberServed;
+  private int totalTimeWaited;
+
+public WaitLine()
+{
+  line = new LinkedQueue<>();
+  reset();
+} // end default constructor
+
+/** Simulates a waiting line with one serving agent. 
+    @param duration The number of simulated minutes.
+    @param arrivalProbability. A real number between 0 and 1, and the probability that a customer arrives at a given time.
+    @param maxTransactionTime. The longest transaction time for a customer. */
+public void simulate(int duration, double arrivalProbability, int maxTransactionTime) {
+  int transactionTimeLeft = 0;
+  for(int clock = 0; clock < duration; clock++)
+  {
+    if(Math.random() < arrivalProbabilty)
+{
+    numberOfArrivals++;
+    int transactionTime = (int)(Math.random() * maxTransactionTime + 1);
+    Customer nextArrival = new Customer(clock, transactionTime, numberOfArrivals);
+  line.enqueue(nextArrival);
+  System.out.println("Customer " + numberOfArrivals + " enters line at time " + clock + ". Transaction time is " + transactionTime);
+} // end if
+
+  if(transactionTimeLeft > 0)
+  transactionTimeLeft--;
+  else if (!line.isEmpty())
+  {
+    Customer nextCustomer = line.dequeue();
+    transactionTimeLeft = nextCustomer.getTransactionTime() -1;
+    int timeWaited = clock - nextCustomer.getArrivalTime();
+    totalTimeWaited = totalTimeWaited + timeWaited;
+    numberServed++;
+    System.out.println("Customer " + nextCustomer.getCustomerNumber() + " begins service at time " + clock + ". Time waited is " + timeWaited);
+
+    } //end if
+    } // end for
+    } // end simulate
+/** Displays summary results of the simulation */
+public void displayResults()
+{
+  System.out.println();
+  System.out.println("Number served = " + numberServed);
+  System.out.println("Total time waited = " + totalTimeWaited);
+  double averageTimeWaited = ((double)totalTimeWaited) / numberServed;
+  System.out.println("Average time waited = " + averageTimeWaited);
+  int leftInLine = numberOfArrivals - numberServed;
+  System.out.println("Number left in line = " + leftInLine);
+} // end display Results
+
+/** Initializes the simulation */
+public final void reset()
+{
+  line.clear();
+  numberOfArrivals = 0;
+  numberServed = 0;
+  totalTimeWaited = 0;
+} //end reset
+} //end waitLine
+
+
+
+StockLedger myStocks = new StockLedger();
+myStocks.buy(20, 45);
+myStocks.buy(20, 75);
+double capGain = myStocks.sell(30, 65);
+
+
+The class StockLedger
+/** A class that recors the purchase and sale of stocks and provides captial gains or less. */
+public class StockLedger {
+  private QueueInterface<Stock Purchase> ledger;
+
+public StockLedger() {
+  ledger = new LinkedQueue<>();
+} // end default constructor
+
+/** Records a stock purchase in this ledger.
+    @param sharesBought. The number of shares purchased.
+    @param pricePerShare. The price per share. */
+public void buy (int sharesBought, double pricePerShare)
+{
+  while(sharesBought > 0)
+{
+  StockPurchase purhcase = new StockPurchase(pricePerShare);
+  ledger.enqueue(purchase);
+  sharesBought--;
+}//end while
+} //end buy
+
+/** Removes from this ledger any shares that were sold and computes the capital gain or loss.
+  @param sharesSold  The number of shares sold.
+  @param pricePerShare    The price per share.
+  @return The capital gain(loss) */
+public double sell(int sharesSold, double pricePerShare)
+{
+  double saleAmount = sharesSold * pricePerShare;
+  double totalCost = 0;
+while(sharesSold > 0)
+{
+  StockPurhcase share = ledger.dequeue();
+  double shareCost = share.getCostPerShare();
+  totalCost = totalCost + shareCost;
+  sharesSold--;
+} // end while
+return saleAmount -totalCost;
+} //end sell
+}// end StockLedger
+
+
+NOTE:: A class that has set methods is a class of mutable objects. A class without set methods is a class of immutable objects. Java interlude 6 talks about such classes in more detail.
+
+public boolean add(T newEntry)
+adds a new entry to the back of this queue returning true if successful and throwing an exception if not.
+
+public boolean offer(T newEntry)
+adds a new entry to the back of this queue, returning true or false according to the success of the operation.
+
+public T remove()
+Retrieves and removes the entry at the front of this queue, but throws NoSuchElementException if the queue is empty prior to the operation
+
+public T poll()
+Retrieves and removes the entry at the front of this queue, but returns null if the queue is empty prior to the operation.
+
+public T element()
+Retrieves the entry at the front of this queue, but throws NOSuchElementException if the queue is empty. Our method getFront throws an EmptyQueueException instead of a NoSuchElementException
+
+public T peek()
+Retrieves the entry at the front of this queue, but returns null if the queue is empty.
+
+public boolean isEmpty()
+Detects whether this queue is empty
+
+public void clear()
+Removes all entries from this queue
+
+public int size()
+Gets the numner of elements currently in this queue.
+
+NOTE:: Although the ADT deque is called a double ended queue it actually behaves like a double ended stack. You can push pop or get items at either of its ends
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
